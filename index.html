@@ -1,55 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<style>
-		.notes {
-			display: grid;
-			align-items: top;
-			flex-wrap: wrap;
-			gap: 5px;
-			--columns: 8;
-			grid-template-columns: repeat(var(--columns), 50px);
-		}
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			:root {
+				--bg: #fff;
+				--fg: #000;
+			}
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--bg: #000;
+					--fg: #fff;
+				}
+			}
+			html {
+				background-color: var(--bg);
+				color: var(--fg);
+			}
+			body {
+				margin: 0;
+			}
 
-		.note {
-			width: 50px;
-			height: 50px;
-			border: 1px solid black;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-		.note:nth-child(32n) {
-			margin-bottom: 20px;
-		}
-		.note.active {
-			background-color: red;
-		}
-	</style>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js" integrity="sha512-Siyxh4gyNM5SaERNa9BOZSPcu/auHyFUWn9OVFD7MxI3/dVPQklE7tfqS+pLmPHF1zo6UdDaJAp/thihrf0c7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</head>
-<body>
-	<button onclick="toggleAutoplay()">Autoplay</button>
-	<button onclick="playNextNote(true)">Play next</button>
-	<button onclick="reset()">Reset</button>
-	<input type="number" id="bpm" value="120" oninput="onBpmChange()"/>
-	<input type="number" id="columns" value="8" oninput="onColumnsChange()"/>
-	WaveType
-	<select id="waveType" onchange="onWaveTypeChange()">
-		<option value="sine">Sine</option>
-		<option value="square">Square</option>
-		<option selected value="sawtooth">Sawtooth</option>
-		<option value="triangle">Triangle</option>
-	</select>
+			button,
+			input,
+			select,
+			textarea {
+				color: inherit;
+				background-color: inherit;
+				border-color: inherit;
+			}
+			.notes {
+				display: grid;
+				align-items: flex-start;
+				flex-wrap: wrap;
+				gap: 5px;
+				--columns: 8;
+				grid-template-columns: repeat(var(--columns), min-content);
+			}
 
-	<div>
-	<textarea id="song" cols="30" rows="10" oninput="onSongChange()"></textarea>
-</div>
-	<div id="notes" class="notes"></div>
-	<script src="./script.js"></script>
-</body>
+			.note {
+				width: 50px;
+				height: 50px;
+				border: 1px solid var(--fg);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.note.active {
+				background-color: red;
+			}
+
+			.app {
+				position: relative;
+				display: flex;
+				flex-direction: column;
+				height: 100vh;
+			}
+			.toolbar {
+				position: sticky;
+				top: 0;
+				padding: 0.5rem 0;
+				background-color: var(--bg);
+			}
+			.editor {
+				display: flex;
+				width: 100%;
+				gap: 1rem;
+				align-items: stretch;
+				flex-grow: 1;
+			}
+			.song {
+				resize: none;
+			}
+			.notesContainer {
+				overflow-x: auto;
+				overflow-y: hidden;
+			}
+			.song,
+			.notesContainer {
+				flex: 1 0 0px;
+			}
+		</style>
+	</head>
+	<body class="app">
+		<div class="toolbar">
+			<button id="autoplay">Autoplay</button>
+			<button id="playNext">Play next</button>
+			<button id="reset">Reset</button>
+			<input type="number" id="bpm" value="60" />
+			Notes per Beat
+			<input type="number" id="notesPerBeat" value="2" />
+			Beat per Bar
+			<input type="number" id="beatsPerBar" value="4" />
+			WaveType
+			<select id="waveType">
+				<option value="sine">Sine</option>
+				<option value="square">Square</option>
+				<option selected value="sawtooth">Sawtooth</option>
+				<option value="triangle">Triangle</option>
+			</select>
+
+			<button id="loadHelpContent">Load Help Content</button>
+		</div>
+
+		<div class="editor">
+			<textarea id="song" class="song" cols="30" rows="10"></textarea>
+			<div class="notesContainer">
+				<div id="notes" class="notes"></div
+			></div>
+		</div>
+		<script src="script.js"></script>
+	</body>
 </html>

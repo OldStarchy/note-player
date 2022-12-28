@@ -423,9 +423,10 @@ class PlayerController {
             directiveStart = directiveIndex;
             if (elementIndex > 0) {
                 ele.style.marginRight =
-                    (elementIndex + 1) %
-                        parseInt(this.notesPerBeatInput.value) ===
-                        0
+                    this.notesPerBeatInput.value !== '1' &&
+                        (elementIndex + 1) %
+                            parseInt(this.notesPerBeatInput.value) ===
+                            0
                         ? '1rem'
                         : '0';
                 ele.style.marginBottom =

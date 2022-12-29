@@ -1,8 +1,11 @@
 {
-  "dependencies": {
-    "typescript": "^4.9.4"
-  },
   "scripts": {
-    "build": "tsc"
+    "build": "concurrently \"tsc -p tsconfig.json\" \"sass --style compressed --update style.scss:style.css\"",
+    "watch": "concurrently \"tsc -p tsconfig.json --watch\" \"sass --style compressed --watch style.scss:style.css\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "sass": "^1.57.1",
+    "typescript": "^4.9.4"
   }
 }

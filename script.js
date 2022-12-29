@@ -2,18 +2,26 @@
 const HELP_CONTENT = `\
 // comments start with //
 
+
 // Play some notes
+
 C C# D D#
 E F F# G
 G# A5 A#5 B5
 
+
+
 // _ for a rest
 _ _ _ _
+
+
 
 // Octave is 4 by default
 
 C C4 C C4
 _ _ _ _
+
+
 
 // add ~ to hold notes longer
 // following notes will overlap unless you add rests
@@ -22,14 +30,32 @@ C~~~ _ _ _  _ _ _ _
 G3~~~~~ _ B~~~~ _ D~~~ _ F~ _
 C~~~ _ _ _  _ _ _ _
 
+
+
+// use - to create chords
+
+G#~~~-B5~~~-E5~~~ ___
+F#~~~-B5~~~ ___
+G#~~~-C#5~~~-E5~~~ ___
+A5~~~-C#5~~~-E5~~~ ___
+
+
+
 // Repeat sections by surrounding them with |: and :|
 
 |: A4~~ _ _ F3~~ _ _ G3~~ _ _ C3~~ _ _
 C3~~ _ _ G3~~ _ _ A4~~ _ _ F3~~ _ _ :|
 
+
+
 // Repeated sections can be nested
 
-|: |: C4 _ C4 _ G4 _ C _ :| C4 _ F4 _ F#4 _ G4 _ :|
+|:
+|: |: G#-B5-E5  E  :| :|
+|: |: F#-B5     B  :| :|
+|: |: G#-C#5-E5 C# :| :|
+|: |: A5-C#5-E5 A  :| :|
+                      :|
 
 
 // You can change the wave type
@@ -46,10 +72,13 @@ C E G _
 triangle
 C E G _
 
+
+
 // And finally, you can halt the autoplay with a double bar ||
 
 C  E  G  C5
 C5 E5 G5 C6 ||
+
 
 
 // Click any of the squares to play that note.
@@ -596,3 +625,4 @@ function parseSong(song) {
     });
     return words.map(parseWord).filter((w) => !!w);
 }
+//# sourceMappingURL=script.js.map

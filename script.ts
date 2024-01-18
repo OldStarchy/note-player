@@ -294,7 +294,10 @@ class Player extends EventTarget {
 	}
 
 	processNextBeat() {
-		const head = this.head;
+		if (this.directives.length === 0) return;
+
+		const head =
+			(this.head + this.directives.length) % this.directives.length;
 
 		while (!this.processNextDirective() && this.head !== head);
 	}
